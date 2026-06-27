@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taking Care of Goose</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #F7F2E8;
+      --warm:    #EDE5D4;
+      --bark:    #3A2E22;
+      --snout:   #7A5C42;
+      --gold:    #C9993A;
+      --alert:   #C0442A;
+      --muted:   #8A7A68;
+      --radius:  12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--bark);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--bark);
+      color: var(--cream);
+      padding: 64px 24px 56px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: #BFB49E;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* ── PAW DIVIDER ── */
+    .paw-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px 0 0;
+      font-size: 1.1rem;
+      opacity: 0.45;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1.5px solid var(--gold);
+      padding-bottom: 3px;
+      margin-bottom: 16px;
+    }
+
+    .section h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .section p {
+      color: #4A3D2F;
+      margin-bottom: 12px;
+    }
+
+    .section p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--warm);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card p { color: #4A3D2F; }
+
+    /* ── ALERT CARD ── */
+    .card-alert {
+      background: #FDF0EC;
+      border-left: 4px solid var(--alert);
+    }
+
+    .card-alert .card-title { color: var(--alert); }
+
+    /* ── TIP CARD ── */
+    .card-tip {
+      background: #FBF6E8;
+      border-left: 4px solid var(--gold);
+    }
+
+    /* ── FEEDING GRID ── */
+    .meal-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .meal-card {
+      background: var(--bark);
+      color: var(--cream);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .meal-card .meal-icon { font-size: 1.6rem; margin-bottom: 6px; }
+    .meal-card .meal-time {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .meal-card .meal-amount {
+      font-family: 'Fraunces', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    /* ── PILL BADGE ── */
+    .badge {
+      display: inline-block;
+      background: var(--snout);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 500;
+      border-radius: 99px;
+      padding: 3px 10px;
+      vertical-align: middle;
+      margin-left: 6px;
+    }
+
+    /* ── CRIMINAL RECORD ── */
+    .rap-sheet {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .rap-sheet li {
+      background: var(--warm);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.95rem;
+    }
+
+    .rap-sheet li .crime-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1.5px solid var(--warm);
+      margin: 40px 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bark);
+      color: #BFB49E;
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 0.85rem;
+    }
+
+    footer strong { color: var(--cream); }
+
+    /* ── PHOTO ── */
+    .photo-wrap {
+      display: flex;
+      justify-content: center;
+      background: var(--bark);
+      padding: 0 24px 40px;
+    }
+
+    .photo-wrap img {
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+      border-radius: var(--radius);
+      display: block;
+      transform: rotate(-1.5deg);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+    }
+
+    /* ── INLINE PHOTOS ── */
+    .inline-photo-wrap {
+      margin: 28px auto;
+      max-width: 520px;
+    }
+
+    .inline-photo-wrap img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      display: block;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+
+    .inline-photo-wrap:nth-child(odd) img  { transform: rotate(-1deg); }
+    .inline-photo-wrap:nth-child(even) img { transform: rotate(1deg); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 480px) {
+      .meal-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <p class="hero-eyebrow">Dog Sitter Guide</p>
+    <h1>Taking Care of <em>Goose</em></h1>
+    <p class="hero-sub">Everything you need to know.</p>
+    <div class="paw-row">🐾🐾🐾</div>
+  </header>
+
+  <div class="photo-wrap">
+    <img src="goose.jpg" alt="Goose" />
+  </div>
+
+  <main class="page">
+
+    <!-- FEEDING -->
+    <section class="section">
+      <span class="section-label">Daily routine</span>
+      <h2>Feeding</h2>
+      <p>Goose eats twice a day. He will absolutely pretend he hasn't been fed. He has.</p>
+
+      <div class="meal-row">
+        <div class="meal-card">
+          <div class="meal-icon">🌅</div>
+          <div class="meal-time">Morning</div>
+          <div class="meal-amount">One big scoop</div>
+        </div>
+        <div class="meal-card">
+          <div class="meal-icon">🌙</div>
+          <div class="meal-time">Night</div>
+          <div class="meal-amount">One big scoop</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💊 Allergy pills <span class="badge">Morning only</span></div>
+        <p>Throw two generic human allergy pills into his kibble in the morning. He might eat around them — if you find a pill on the floor later, that's why.</p>
+        <p style="margin-top: 10px;">You can wrap them in a little peanut butter to make it easier, but you totally don't have to. Up to you.</p>
+      </div>
+    </section>
+
+      <div class="inline-photo-wrap">
+        <img src="goose2.jpg" alt="Goose" />
+      </div>
+
+    </section>
+
+    <hr class="divider" />
+
+    <!-- WALKS -->
+    <section class="section">
+      <span class="section-label">Getting outside</span>
+      <h2>Walks</h2>
+
+      <div class="card">
+        <div class="card-title">🦮 The bite collar</div>
+        <p>Always use the bite collar for walks. To release it, just unclip the black plastic clip — no need to pull apart any part of the leash. Simple.</p>
+      </div>
+
+      <div class="card card-tip">
+        <div class="card-title">🐕 Meeting other dogs</div>
+        <p>Goose is generally really well-behaved on leash. He's friendly with other dogs but will go a little crazy before meeting them. He's not aggressive — he just wants to sniff and then he's over it.</p>
+      </div>
+    </section>
+
+      <div class="inline-photo-wrap">
+        <img src="goose3.jpg" alt="Goose on a walk" />
+      </div>
+
+    </section>
+
+    <hr class="divider" />
+
+    <!-- SLEEPING -->
+    <section class="section">
+      <span class="section-label">At home</span>
+      <h2>Sleeping & Hanging Out</h2>
+      <p>Goose's strong preference is to sleep in bed, on top of you, ideally occupying more than his fair share of the mattress. That said, he doesn't always insist — you're allowed to have boundaries.</p>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- FOOD THIEF -->
+    <section class="section">
+      <span class="section-label">⚠️ Important warning</span>
+      <h2>The Food Situation</h2>
+
+      <div class="card card-alert">
+        <div class="card-title">🚨 Do not leave food on the counter. Ever.</div>
+        <p>Goose will get up on the counter. He has done it before and he will do it again. He is an astonishing food thief with no shame and no limits. He also <em>may</em> try to open the trash barrel — he used to be able to do it, and it's unclear whether he's still capable. Assume yes.</p>
+      </div>
+
+      <p style="margin-top: 16px; font-weight: 500;">Confirmed incidents from his criminal record:</p>
+
+      <ul class="rap-sheet">
+        <li>
+          <span class="crime-icon">🍝</span>
+          <span>An entire bag of dry orzo. Uncooked. He ate it dry.</span>
+        </li>
+        <li>
+          <span class="crime-icon">🐻</span>
+          <span>Half a pound of gummy bears. Gone.</span>
+        </li>
+        <li>
+          <span class="crime-icon">☕</span>
+          <span>Multiple packets of instant coffee. He was fine. Somehow.</span>
+        </li>
+      </ul>
+
+      <div class="card card-tip" style="margin-top: 20px;">
+        <div class="card-title">💡 Rule of thumb</div>
+        <p>If it smells like food and it's reachable, it's gone. Counter height is not a deterrent. Treat the counter as ground level for Goose's purposes.</p>
+      </div>
+      <div class="inline-photo-wrap">
+        <img src="goose4.jpg" alt="Goose" />
+      </div>
+
+    </section>
+
+  <footer>
+    <p>Made with love for <strong>Goose</strong> 🐾</p>
+  </footer>
+
+</body>
+</html>
